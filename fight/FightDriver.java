@@ -1,11 +1,12 @@
 package fight;
 
-
-import java.sql.SQLOutput;
+/*RULES: Hero always attacks first.
+*        Default damage is a d20.
+*        Attacks always hit.
+* */
 
 public class FightDriver {
     public static void main(String[] args) {
-
         Hero hero = new Hero("Shrek", 100);
         Enemy enemy = new Enemy("Donkey", 100);
 
