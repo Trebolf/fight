@@ -2,20 +2,20 @@ package fight;
 
 public class Enemy {
 
-    static String name;
-    static int health = 0;
+    String name;
+    int health = 0;
 
-    static int attack(int damageAmount) {
+    int attack(int damageAmount) {
         health = health - damageAmount;
         return damageAmount;
     }
 
-    static int special(int damageAmount) {
+    int special(int damageAmount) {
         health = health - damageAmount;
-        return health;
+        return damageAmount;
     }
 
-    static int heal(int healthHealed) {
+    int heal(int healthHealed) {
         health = health + healthHealed;
         return health;
     }
