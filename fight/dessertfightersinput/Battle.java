@@ -3,46 +3,49 @@ package fight.dessertfightersinput;
 import java.util.Scanner;
 
 public class Battle {
-    public void fight(Canezerker one, Gummybearer two) throws InterruptedException {
+
+    private boolean aiTakesTurn = true;
+    private int round = 0;
+
+    public void fight(Fighter one, Fighter two) throws InterruptedException {
+
         Scanner sc = new Scanner(System.in);
-        Integer round = 1;
-        Integer turnsToCooldown = 0;
-        Boolean areAlive = true;
+
+        boolean areAlive = true;
 
         while (areAlive) {
-            System.out.println("ROUND " + round++);
+            System.out.println("ROUND " + getRound());
             System.out.println("(" + one.getName() + " HP: " + one.getHealth() + ")" + " (" + two.getName() + " HP: " + two.getHealth() + ")");
             System.out.println("1) Attack");
-            System.out.println("2) Rush");
+            System.out.println("2) " + one.getSpecial1Name());
+            System.out.println("3) " + one.getSpecial2Name());
+            System.out.print("Insert input here: ");
+
+            setAiTakesTurn(true);
 
             String input = sc.nextLine();
 
             switch (input) {
-                case "1":
-                    one.attack(two);
-                    turnsToCooldown--;
-                    break;
-                case "2":
-                    if (turnsToCooldown <= 0) {
-                        if (one.rush(two)) {
-                            turnsToCooldown = 3;
-                        }
-                    } else {
-                        System.out.println("Rush is on cooldown for " + turnsToCooldown + " turns.");
-                        System.out.println();
-                        break;
-                    }
-                    turnsToCooldown--;
-                    break;
-                case "0":
-                    break;
-                default:
-                    break;
+                case "1" -> one.attack(two);
+                case "2" -> one.special1(two);
+                case "3" -> one.special2(two);
+                case "0" -> areAlive = false;
+                default -> System.out.println("INVALID INPUT");
             }
 
-            //two's turn. Heal to be added
-            if(two.getHealth() > 0) {
-                two.attack(one);
+            //two's turn
+            if(two.getHealth() > 0 && getAiTakesTurn()) {
+                int chance = Random.wholeNumber(1,20);
+                if (chance > 0 && chance < 15) {
+                    two.attack(one);
+                } else if (chance >= 15 && chance <= 17){
+                    two.special1(one);
+                } else {
+                    two.special2(one);
+                }
+                setRound(getRound()+1);
+            } else {
+                setRound(getRound()-1);
             }
 
             if (one.getHealth() <= 0 || two.getHealth() <= 0) {
@@ -54,5 +57,21 @@ public class Battle {
                 areAlive = false;
             }
         }
+    }
+
+    public boolean getAiTakesTurn() {
+        return aiTakesTurn;
+    }
+
+    public void setAiTakesTurn(boolean aiTakesTurn) {
+        this.aiTakesTurn = aiTakesTurn;
+    }
+
+    public int getRound() {
+        return round;
+    }
+
+    public void setRound(int round) {
+        this.round = round;
     }
 }

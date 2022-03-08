@@ -4,24 +4,28 @@ import fight.Random;
 
 public abstract class Fighter {
 
+    //ENCAPSULATED VARIABLES
     private String name;
     private Integer health;
     private Integer minDamage;
     private Integer maxDamage;
+    private String special1Name;
+    private String special2Name;
 
-    public Fighter() {
+    //ABSTRACT METHODS
+    public abstract void special1(Fighter fighter);
+    public abstract void special2(Fighter fighter);
 
-    }
-
-    public Integer takeDamage(Integer damageTaken) {
+    //METHODS
+    public void takeDamage(Integer damageTaken) {
         this.health = this.health - damageTaken;
-        return this.health;
     }
 
-    public Boolean attack(Fighter fighter) {
+    public void attack(Fighter fighter) {
         Integer damageTakenRange = Random.wholeNumber(this.getMinDamage(),this.getMaxDamage());
         Integer ownHealthLeft = this.getHealth();
         Integer targetHealthLeft = fighter.getHealth();
+
         fighter.takeDamage(damageTakenRange);
 
         if(targetHealthLeft <= 0 || ownHealthLeft <= 0) {
@@ -31,9 +35,9 @@ public abstract class Fighter {
             System.out.println(fighter.getName() + " has " + fighter.getHealth() + " health left.");
             System.out.println();
         }
-        return targetHealthLeft > 0;
     }
 
+    //GETTERS AND SETTERS
     public String getName() {
         return name;
     }
@@ -64,5 +68,21 @@ public abstract class Fighter {
 
     public void setMaxDamage(Integer maxDamage) {
         this.maxDamage = maxDamage;
+    }
+
+    public String getSpecial1Name() {
+        return special1Name;
+    }
+
+    public void setSpecial1Name(String special1Name) {
+        this.special1Name = special1Name;
+    }
+
+    public String getSpecial2Name() {
+        return special2Name;
+    }
+
+    public void setSpecial2Name(String special2Name) {
+        this.special2Name = special2Name;
     }
 }

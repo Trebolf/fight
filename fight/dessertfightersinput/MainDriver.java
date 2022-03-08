@@ -1,37 +1,59 @@
 package fight.dessertfightersinput;
 
+
 import java.util.Scanner;
 
 public class MainDriver {
     public static void main(String[] args) throws InterruptedException {
-        Canezerker fighter1 = new Canezerker();
-        Gummybearer fighter2 = new Gummybearer();
+        Fighter fighter;
+        Fighter enemy;
+
         Scanner sc = new Scanner(System.in);
 
-        System.out.print("Insert the name of your fighter: ");
+        System.out.println("Choose your class: ");
+        System.out.println("1) Canezerker");
+        System.out.println("2) Gummybearer");
+        String job = sc.nextLine();
+        switch (job) {
+            case "1" -> fighter = new Canezerker();
+            case "2" -> fighter = new Gummybearer();
+            default -> {
+                System.out.println("INVALID INPUT");
+                fighter = new Canezerker();
+            }
+        }
+
+        /*System.out.print("Insert the name of your fighter: ");
         String name = sc.nextLine();
-        fighter1.setName(name);
+        fighter.setName(name);
 
-        System.out.print("Insert the amount of health " + fighter1.getName() + " has: ");
+        System.out.print("Insert the amount of health " + fighter.getName() + " has: ");
         String health = String.valueOf(sc.nextLine());
-        fighter1.setHealth(Integer.valueOf(health));
+        fighter.setHealth(Integer.valueOf(health));
 
-        System.out.print("Insert the minimum damage " + fighter1.getName() + " has: ");
+        System.out.print("Insert the minimum damage " + fighter.getName() + " has: ");
         String minDamage = String.valueOf(sc.nextLine());
-        fighter1.setMinDamage(Integer.valueOf(minDamage));
+        fighter.setMinDamage(Integer.valueOf(minDamage));
 
-        System.out.print("Insert the maximum damage " + fighter1.getName() + " has: ");
+        System.out.print("Insert the maximum damage " + fighter.getName() + " has: ");
         String maxDamage = String.valueOf(sc.nextLine());
-        fighter1.setMaxDamage(Integer.valueOf(maxDamage));
+        fighter.setMaxDamage(Integer.valueOf(maxDamage));*/
 
         System.out.println();
 
-        fighter2.setName("Gummy");
-        fighter2.setHealth(150);
-        fighter2.setMinDamage(10);
-        fighter2.setMaxDamage(20);
-
+        System.out.println("Choose your enemy: ");
+        System.out.println("1) Canezerker");
+        System.out.println("2) Gummybearer");
+        String enemyJob = sc.nextLine();
+        switch (enemyJob) {
+            case "1" -> enemy = new Canezerker();
+            case "2" -> enemy = new Gummybearer();
+            default -> {
+                System.out.println("INVALID INPUT");
+                enemy = new Canezerker();
+            }
+        }
         Battle battle = new Battle();
-        battle.fight(fighter1, fighter2);
+        battle.fight(fighter, enemy);
     }
 }
