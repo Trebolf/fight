@@ -9,7 +9,7 @@ public class Gummybearer extends Fighter {
         this.setMinDamage(10);
         this.setMaxDamage(20);
         this.setSpecial1Name("Heal");
-        this.setSpecial2Name("Heal x 2");
+        this.setSpecial2Name("Buffet");
     }
 
     //METHODS
